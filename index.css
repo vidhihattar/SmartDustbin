@@ -72,3 +72,14 @@ img {
   width: 100%;
   background-color: #84c3d3;
 }
+#Refresh {
+  margin: 10px;
+  padding: 10px;
+
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  width: 200px;
+}

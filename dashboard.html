@@ -30,27 +30,7 @@
         </div>
 
 
-        <table class="table table-hover">
-          <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>Jacob</td>
-              <td>Thornton</td>
-              <td>@fat</td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td colspan="2">Larry the Bird</td>
-              <td>@twitter</td>
-            </tr>
-          </tbody>
-        </table>
+       
       </div>
       <div class="dustbin">
         <h3>Dustbin 2</h3>
@@ -60,42 +40,123 @@
 
         </div>
 
-        <table class="table table-hover">
-          <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>Jacob</td>
-              <td>Thornton</td>
-              <td>@fat</td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td colspan="2">Larry the Bird</td>
-              <td>@twitter</td>
-            </tr>
-          </tbody>
-        </table>
+       
 
       </div>
+      <div id="dustbin3" class="dustbin">
+        <h3>Dustbin 3</h3>
+        <div class="dustbin-container">
 
-    </div>
-    <div id="myItem1"></div>
+          <div id="db3" class="ldBar label-center" data-type="fill" data-img="trash3.svg" data-fill-background="grey" data-fill-background-extrude="0" data-img-size="300,300"></div>
+
+        </div>
+
+       
+
+      </div>
+      
+      
+  
   </div>
+  <button id="Refresh" type="button" class="btn btn-primary" name="button">Refresh</button>
+  <div class="Adding">
+        
+    <h3 id="Addd">Add Dustbin</h3>
+    <form id="form" action="http://">
+      <label for="fname">Add IP</label><br>
+      <input type="text" id="fname" name="fname"><br>
+    
+    <div class="dustbin-container">
+      <div class="add-dustbin">
+        <button id="addButton" type="button" class="btn btn-primary" name="button">Add</button>
+     
+       
+      </div>
+    </div>
+
+</div>
 
   <script>
     var db1 = new ldBar("#db1");
     var db1 = document.getElementById('db1').ldBar;
-    db1.set(60);
+    db1.set(0);
 
     var db2 = new ldBar("#db2");
     var db2 = document.getElementById('db2').ldBar;
-    db2.set(60);
+    db2.set(0);
+
+    var db3 = new ldBar("#db3");
+    var db3 = document.getElementById('db3').ldBar;
+    db3.set(0);
+
+    var button = document.getElementById('Refresh');
+    button.addEventListener('click', fetchApi);
+
+    var button2 = document.getElementById('Refresh');
+    button2.addEventListener('click', fetchApi2);
+
+    var button3 = document.getElementById('addButton');
+    button3.addEventListener('click', fetchApi3);
+
+    var dustbin3 = document.getElementById('dustbin3');
+    dustbin3.style.display = "block";
+    //catch the input from the form 
+    // var form = document.getElementById('form');
+    // form.addEventListener('click', (e)=>{
+    //   e.preventDefault();
+    //   var input = document.getElementById('fname').value;
+    //   console.log(input);
+    // });
+
+function fetchApi() {
+      fetch('http://dustbin1.local/getdistance')
+        .then(response => response.json())
+        .then(data => {
+          console.log(data);
+          var message =(220 - +data.message);
+
+           db1.set(message);
+           console.log(message);
+        })
+    }
+function fetchApi2() {
+      fetch('http://dustbin2.local/getdistance')
+        .then(response => response.json())
+        .then(data => {
+          console.log(data);
+          var message =(100 - +data.message);
+           db2.set(message);
+        })
+    }
+  
+//create fetch api for dustbin 3 which takes api as input
+function fetchApi3(api) {
+      // fetch(api)
+      //   .then(response => response.json())
+      //   .then(data => {
+      //     console.log(data);
+      //     var message =(100 - +data.message);
+      //      db3.set(message);
+      //   })
+      db3.set(50);
+    }
+  
+    // add new dustbin when button is clicked
+    var addButton = document.getElementById('addButton');
+    addButton.addEventListener('click', ()=>{
+     addButton.style.display = "none";
+      var form = document.getElementById('form');
+      form.style.display = "none";
+      var add = document.getElementById('Addd');
+      add.style.display = "none";
+      //printing input value
+      var input = form.value;
+      fetchApi3(input);  
+    });
+
+
+    
+   
   </script>
 
 
